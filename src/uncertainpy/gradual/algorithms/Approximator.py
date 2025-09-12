@@ -58,7 +58,7 @@ class Approximator:
         self.rewrite_arrays()
 
         if (verbose):
-            print_args = '\n'.join([str(x) for x in self.ads.arguable_strength])
+            print_args = '\n'.join([str(x) for x in self.ads.arguable_strength if x.attacks or x.supports or type(x)==Argument])
             print(f"{self.ads.name}, {self.ads.approximator.name}\nTime: {time}\n{print_args}\n")
 
         return max_derivative
