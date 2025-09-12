@@ -38,11 +38,11 @@ def computeTopOrder(bag):
     supports = {arg:[] for arg in args}
 
     for att in bag.attacks:
-        indeg[att.get_attacked()] += 1
-        attacks[att.get_attacker()].append(att.get_attacked())
+        indeg[att.get_target()] += 1
+        attacks[att.get_source()].append(att.get_target())
     for sup in bag.supports:
-        indeg[sup.get_supported()] += 1
-        supports[sup.get_supporter()].append(sup.get_supported())
+        indeg[sup.get_target()] += 1
+        supports[sup.get_source()].append(sup.get_target())
 
     #determine source arguments
     source_args = []

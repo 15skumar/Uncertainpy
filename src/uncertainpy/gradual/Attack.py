@@ -1,20 +1,19 @@
-class Attack:
-    def __init__(self, attacker, attacked, weight=1) -> None:
-        self.attacker = attacker
-        self.attacked = attacked
-        self.weight = weight
+from .Arguable import Arguable
 
-    def get_attacker(self):
-        return self.attacker
+class Attack(Arguable):
+    def __init__(self, source, target, weight=1) -> None:
+        super().__init__(name=f"Att({source},{target})", initial_weight=weight)
+        self.source = source
+        self.target = target
 
-    def get_attacked(self):
-        return self.attacked
+    def get_source(self):
+        return self.source
 
-    def get_weight(self):
-        return self.weight
+    def get_target(self):
+        return self.target
 
     def __repr__(self) -> str:
-        return f"Attack({self.attacker}, {self.attacked}, weight={self.weight})"
+        return f"Attack({self.source}, {self.target}, weight={self.initial_weight})"
 
     def __str__(self) -> str:
-        return f"Attack by {self.attacker} to {self.attacked} with weight {self.weight}"
+        return f"Attack by {self.source} to {self.target} with weight {self.initial_weight}"

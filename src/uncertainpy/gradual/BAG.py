@@ -13,6 +13,8 @@ class BAG:
         self.arguments = {}
         self.attacks = []
         self.supports = []
+
+        self.arguable = [] # List of all arguable elements (arguments, attacks, supports)
         
         self.path = path
 
@@ -52,14 +54,22 @@ class BAG:
         else:
             self.arguments[attacker.name] = attacker
 
-        if attacked.name in self.arguments:
-            attacked = self.arguments[attacked.name]
-        else:
-            self.arguments[attacked.name] = attacked
-            
+        if type(attacked) == Argument:
+            if attacked.name in self.arguments:
+                attacked = self.arguments[attacked.name]
+            else:
+                self.arguments[attacked.name] = attacked
+                
         attacked.add_attacker(attacker, attack_weight)
 
         self.attacks.append(Attack(attacker, attacked, attack_weight))
+
+        
+        if not attacker in self.arguable:
+            self.arguable.append(attacker)
+        if not attacked in self.arguable:
+            self.arguable.append(attacked)
+
 
     def add_support(self, supporter, supported, support_weight=1):
         if type(supporter) != Argument:
@@ -73,17 +83,25 @@ class BAG:
         else:
             self.arguments[supporter.name] = supporter
 
-        if supported.name in self.arguments:
-            supported = self.arguments[supported.name]
-        else:
-            self.arguments[supported.name] = supported
+        
+        if type(supported) == Argument:
+            if supported.name in self.arguments:
+                supported = self.arguments[supported.name]
+            else:
+                self.arguments[supported.name] = supported
 
         supported.add_supporter(supporter, support_weight)
 
         self.supports.append(Support(supporter, supported, support_weight))
 
+        if not supporter in self.arguable:
+            self.arguable.append(supporter)
+        if not supported in self.arguable:
+            self.arguable.append(supported)
+            
+
     def reset_strength_values(self):
-        for a in list(self.arguments.values()):
+        for a in self.arguable:
             a.strength = a.initial_weight
 
     def get_arguments(self):
