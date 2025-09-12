@@ -9,7 +9,7 @@ class ContinuousModularModel(Model):
     def compute_derivative_at(self, state):
         derivatives = {}
         for a in self.arguable_strength:
-            aggregate_strength = self.aggregation.aggregate_strength(a.attackers, a.supporters, state)
+            aggregate_strength = self.aggregation.aggregate_strength(a.attacks, a.supports, state)
             derivative = self.influence.compute_strength(a.initial_weight, aggregate_strength)
             derivative -= state[a]
 

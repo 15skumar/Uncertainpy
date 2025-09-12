@@ -12,7 +12,7 @@ def computeStrengthValues(bag, agg_f, inf_f):
     strength = {arg:arg.initial_weight for arg in order}
     
     for arg in order:
-        agg = agg_f.aggregate_strength(arg.attackers, arg.supporters, strength)
+        agg = agg_f.aggregate_strength(arg.attacks, arg.supports, strength)
         s = inf_f.compute_strength(arg.initial_weight, agg)
         
         arg.strength = s
@@ -28,7 +28,7 @@ def computeTopOrder(bag):
     Compute topological order for given bag or return None if bag is cyclic.
     """
 
-    args = bag.arguments.values()
+    args = bag.arguable
 
     #compute topological order
     indeg = {arg:0 for arg in args}

@@ -15,10 +15,9 @@ class Support(Arguable):
     def get_initial_weight(self):
         return self.initial_weight
 
-    def __repr__(self) -> str:
-        return f"Support({self.source}, {self.target}, weight={self.initial_weight})"
-
     def __str__(self) -> str:
-        return (
-            f"Support by {self.source} to {self.target} with weight {self.initial_weight}"
-        )
+        return f"Sup({self.source.name}, {self.target.name}):{round(self.initial_weight, 3)}->{round(self.strength, 3)}"
+    
+    def __repr__(self) -> str:
+        return self.__str__()
+

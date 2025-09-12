@@ -1,3 +1,5 @@
+from ..Argument import Argument
+
 class Approximator:
     
 
@@ -24,12 +26,14 @@ class Approximator:
         return None
 
     def initialise_graph_data(self):
+        #plot only arguments and edges that are attacked or supported
         for a in self.ads.arguable_strength:
-            self.graph_data[a.name] = [(0, a.initial_weight)]
+            if type(a)==Argument or a.attacks or a.supports: 
+                self.graph_data[a] = [(0, a.initial_weight)]
 
     def update_graph_data(self, time):
-        for a in self.ads.arguable_strength:
-            self.graph_data[a.name].append((time, self.ads.arguable_strength[a]))
+        for a in self.graph_data:
+            self.graph_data[a].append((time, self.ads.arguable_strength[a]))
 
     def approximate_solution(self, delta, epsilon, verbose=False, generate_plot=False):
         self.initialise_approximation()

@@ -3,7 +3,7 @@ class Arguable:
     A superclass for objects that can be attacked or supported in an argumentation framework.
     """
 
-    def __init__(self, name: str, initial_weight: float, strength: float=None, attackers=None, supporters=None):
+    def __init__(self, name: str, initial_weight: float, strength: float=None, attacks=None, supports=None):
         """
         Initializes an instance of the Arguable class.
         :param name: The name of the arguable entity.
@@ -15,18 +15,18 @@ class Arguable:
         self.name = name
         self.initial_weight = initial_weight
         self.strength = initial_weight
-        self.attackers = attackers if attackers is not None else {}
-        self.supporters = supporters if supporters is not None else {}
+        self.attacks = attacks if attacks is not None else []
+        self.supports = supports if supports is not None else []
 
 
     def get_name(self):
         return self.name
 
-    def add_attacker(self, attacker, attack_weight=1):
-        self.attackers[attacker] = attack_weight
+    def add_attack(self, attack):
+        self.attacks.append(attack)
 
-    def add_supporter(self, supporter, support_weight=1):
-        self.supporters[supporter] = support_weight
+    def add_support(self, support):
+        self.supports.append(support)
 
     def get_initial_weight(self):
         return self.initial_weight

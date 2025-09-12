@@ -3,6 +3,8 @@ from matplotlib import pyplot as plt
 
 def strengthplot(model, delta, epsilon, title="Untitled graph"):
 
+    print(model.approximator.graph_data)
+
     if (type(delta) != float and type(delta) != int):
         raise TypeError("delta must be a float or integer")
 
