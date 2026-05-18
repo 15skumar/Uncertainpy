@@ -110,6 +110,33 @@ class BAG:
             
         return new_support
 
+    def remove_arguments(self, arguments):
+        """Return a new BAG with the given arguments and their incident relations removed."""
+        remove_names = {a.name for a in arguments}
+        new_bag = BAG()
+
+        for name, arg in self.arguments.items():
+            if name not in remove_names:
+                new_bag.add_argument(Argument(name, arg.initial_weight))
+
+        for attack in self.attacks:
+            if attack.source.name not in remove_names and attack.target.name not in remove_names:
+                new_bag.add_attack(
+                    new_bag.arguments[attack.source.name],
+                    new_bag.arguments[attack.target.name],
+                    attack.initial_weight,
+                )
+
+        for support in self.supports:
+            if support.source.name not in remove_names and support.target.name not in remove_names:
+                new_bag.add_support(
+                    new_bag.arguments[support.source.name],
+                    new_bag.arguments[support.target.name],
+                    support.initial_weight,
+                )
+
+        return new_bag
+
     def reset_strength_values(self):
         for a in self.arguable:
             a.strength = a.initial_weight
